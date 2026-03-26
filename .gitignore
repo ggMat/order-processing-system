@@ -1,0 +1,16 @@
+# Terraform cache and state
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+*.tfplan
+
+# Bootstrap local state lives here — never commit it
+terraform/bootstrap/terraform.tfstate
+terraform/bootstrap/terraform.tfstate.backup
+terraform/bootstrap/.terraform/
+
+# Sensitive overrides
+override.tf
+override.tf.json
+*.tfvars.json
