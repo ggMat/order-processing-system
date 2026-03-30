@@ -1,5 +1,13 @@
-aws_region             = "eu-west-1"
-environment            = "dev"
-lambda_memory          = 128
-log_retention_days     = 7
-sqs_visibility_timeout = 60
+aws_region  = "eu-west-1"
+environment = "dev"
+
+# Lambda
+lambda_memory      = 128
+log_retention_days = 7
+
+# SQS
+sqs_visibility_timeout        = 60
+sqs_message_retention_seconds = 345600
+sqs_max_receive_count         = 3
+sqs_dlq_retention_seconds     = 1209600
+sqs_alarm_dlq_threshold       = 1
