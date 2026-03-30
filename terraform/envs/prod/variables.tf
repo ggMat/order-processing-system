@@ -8,6 +8,7 @@ variable "environment" {
   default = "prod"
 }
 
+# ── Lambda ──────────────────────────────
 variable "lambda_memory" {
   type    = number
   default = 128
@@ -18,7 +19,28 @@ variable "log_retention_days" {
   default = 90
 }
 
+# ── SQS ─────────────────────────────────
 variable "sqs_visibility_timeout" {
   type    = number
   default = 300
+}
+
+variable "sqs_message_retention_seconds" {
+  type    = number
+  default = 345600 # 4 days
+}
+
+variable "sqs_max_receive_count" {
+  type    = number
+  default = 5
+}
+
+variable "sqs_dlq_retention_seconds" {
+  type    = number
+  default = 1209600 # 14 days
+}
+
+variable "sqs_alarm_dlq_threshold" {
+  type    = number
+  default = 1
 }
