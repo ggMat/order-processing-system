@@ -13,3 +13,13 @@ module "sqs" {
   dlq_message_retention_seconds = var.sqs_dlq_retention_seconds
   alarm_dlq_threshold           = var.sqs_alarm_dlq_threshold
 }
+
+module "dynamodb" {
+  source = "../../modules/dynamodb"
+
+  prefix                 = local.prefix
+  billing_mode           = var.dynamodb_billing_mode
+  ttl_enabled            = var.dynamodb_ttl_enabled
+  point_in_time_recovery = var.dynamodb_point_in_time_recovery
+  dynamodb_log_retention_days = var.dynamodb_log_retention_days
+}

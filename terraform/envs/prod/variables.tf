@@ -14,7 +14,7 @@ variable "lambda_memory" {
   default = 128
 }
 
-variable "log_retention_days" {
+variable "lambda_log_retention_days" {
   type    = number
   default = 90
 }
@@ -43,4 +43,25 @@ variable "sqs_dlq_retention_seconds" {
 variable "sqs_alarm_dlq_threshold" {
   type    = number
   default = 1
+}
+
+# ── DynamoDB ─────────────────────────────
+variable "dynamodb_billing_mode" {
+  type    = string
+  default = "PAY_PER_REQUEST"
+}
+
+variable "dynamodb_ttl_enabled" {
+  type    = bool
+  default = false 
+}
+
+variable "dynamodb_point_in_time_recovery" {
+  type    = bool
+  default = false # Change to true in a real prod environment for data protection
+}
+
+variable "dynamodb_log_retention_days" {
+  type    = number
+  default = 90
 }
