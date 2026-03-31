@@ -58,10 +58,42 @@ variable "dynamodb_ttl_enabled" {
 
 variable "dynamodb_point_in_time_recovery" {
   type    = bool
-  default = false # Change to true in a real prod environment for data protection
+  default = false
 }
 
 variable "dynamodb_log_retention_days" {
+  type    = number
+  default = 90
+}
+
+# ── SNS ──────────────────────────────────
+variable "sns_email_endpoints" {
+  type    = list(string)
+  default = []
+}
+
+variable "sns_log_retention_days" {
+  type    = number
+  default = 90
+}
+
+# ── EventBridge ──────────────────────────
+variable "eventbridge_event_source" {
+  type    = string
+  default = "order-processing"
+}
+
+variable "eventbridge_log_retention_days" {
+  type    = number
+  default = 90
+}
+
+variable "eventbridge_enable_archive" {
+  type    = bool
+  default = true # Enable archiving in prod for data durability
+}
+
+variable "eventbridge_archive_retention_days" {
   type    = number
   default = 90
 }

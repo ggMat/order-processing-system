@@ -18,3 +18,12 @@ dynamodb_ttl_enabled            = false
 dynamodb_point_in_time_recovery = false
 dynamodb_log_retention_days     = 7
 
+# SNS 
+sns_email_endpoints         = ["luigi.matera.dev@gmail.com"]
+sns_log_retention_days      = 7
+
+# EventBridge
+eventbridge_event_source           = "order-processing"
+eventbridge_log_retention_days     = 7
+eventbridge_enable_archive         = false
+eventbridge_archive_retention_days = 7

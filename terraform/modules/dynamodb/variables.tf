@@ -44,7 +44,7 @@ variable "point_in_time_recovery" {
   default     = false
 }
 
-variable "dynamodb_log_retention_days" {
+variable "log_retention_days" {
   type        = number
   description = "CloudWatch log retention for DynamoDB-related logs"
   default     = 7

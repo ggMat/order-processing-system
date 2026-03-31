@@ -15,5 +15,15 @@ sqs_alarm_dlq_threshold       = 1
 # DynamoDB
 dynamodb_billing_mode           = "PAY_PER_REQUEST"
 dynamodb_ttl_enabled            = false
-dynamodb_point_in_time_recovery = false
+dynamodb_point_in_time_recovery = false # Change to true in a real prod environment for data protection
 dynamodb_log_retention_days     = 90
+
+# SNS 
+sns_email_endpoints         = ["luigi.matera.dev@gmail.com"]
+sns_log_retention_days      = 90
+
+# EventBridge
+eventbridge_event_source           = "order-processing"
+eventbridge_log_retention_days     = 90
+eventbridge_enable_archive         = true
+eventbridge_archive_retention_days = 90

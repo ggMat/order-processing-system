@@ -65,3 +65,36 @@ variable "dynamodb_log_retention_days" {
   type    = number
   default = 7
 }
+
+# ── SNS ──────────────────────────────────
+variable "sns_email_endpoints" {
+  type    = list(string)
+  default = []
+}
+
+variable "sns_log_retention_days" {
+  type    = number
+  default = 7
+}
+
+# ── EventBridge ──────────────────────────
+variable "eventbridge_event_source" {
+  type    = string
+  default = "order-processing"
+}
+
+variable "eventbridge_log_retention_days" {
+  type    = number
+  default = 7
+}
+
+variable "eventbridge_enable_archive" {
+  type    = bool
+  default = false # off in dev — no need to replay events during development
+}
+
+variable "eventbridge_archive_retention_days" {
+  type    = number
+  default = 7
+}
+

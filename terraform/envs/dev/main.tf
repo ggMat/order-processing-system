@@ -21,5 +21,24 @@ module "dynamodb" {
   billing_mode           = var.dynamodb_billing_mode
   ttl_enabled            = var.dynamodb_ttl_enabled
   point_in_time_recovery = var.dynamodb_point_in_time_recovery
-  dynamodb_log_retention_days = var.dynamodb_log_retention_days
+  log_retention_days     = var.dynamodb_log_retention_days
+}
+
+module "sns" {
+  source = "../../modules/sns"
+
+  prefix                         = local.prefix
+  email_endpoints                = var.sns_email_endpoints
+  log_retention_days             = var.sns_log_retention_days
+}
+
+module "eventbridge" {
+  source = "../../modules/eventbridge"
+
+  prefix                 = local.prefix
+  sns_topic_arn          = module.sns.topic_arn
+  order_event_source     = var.eventbridge_event_source
+  log_retention_days     = var.eventbridge_log_retention_days
+  enable_archive         = var.eventbridge_enable_archive
+  archive_retention_days = var.eventbridge_archive_retention_days
 }
