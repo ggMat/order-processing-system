@@ -4,6 +4,10 @@ environment = "dev"
 # Lambda
 lambda_memory      = 128
 lambda_log_retention_days = 7
+lambda_create_order_timeout   = 10
+lambda_worker_timeout         = 60
+lambda_worker_batch_size      = 5
+lambda_worker_max_concurrency = 2
 
 # SQS
 sqs_visibility_timeout        = 60

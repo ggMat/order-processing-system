@@ -19,6 +19,25 @@ variable "lambda_log_retention_days" {
   default = 90
 }
 
+variable "lambda_create_order_timeout" {
+  type    = number
+  default = 10
+}
+
+variable "lambda_worker_timeout" {
+  type    = number
+  default = 60
+}
+
+variable "lambda_worker_batch_size" {
+  type    = number
+  default = 5
+}
+
+variable "lambda_worker_max_concurrency" {
+  type    = number
+  default = 2
+}
 # ── SQS ─────────────────────────────────
 variable "sqs_visibility_timeout" {
   type    = number

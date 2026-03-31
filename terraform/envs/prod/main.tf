@@ -41,3 +41,53 @@ module "eventbridge" {
   enable_archive         = var.eventbridge_enable_archive
   archive_retention_days = var.eventbridge_archive_retention_days
 }
+
+module "iam" {
+  source = "../../modules/iam"
+
+  prefix              = local.prefix
+  orders_table_arn    = module.dynamodb.table_arn
+  orders_queue_arn    = module.sqs.queue_arn
+  orders_dlq_arn      = module.sqs.dlq_arn
+  eventbridge_bus_arn = module.eventbridge.bus_arn
+}
+
+module "lambda_create_order" {
+  source = "../../modules/lambda"
+
+  prefix        = local.prefix
+  function_name = "create-order"
+  role_arn      = module.iam.create_order_role_arn
+  memory_size   = var.lambda_memory
+  timeout       = var.lambda_create_order_timeout
+  log_retention_days = var.lambda_log_retention_days
+
+  environment_variables = {
+    ORDERS_TABLE_NAME  = module.dynamodb.table_name
+    ORDERS_QUEUE_URL   = module.sqs.queue_url
+    ENVIRONMENT        = var.environment
+  }
+}
+
+module "lambda_worker" {
+  source = "../../modules/lambda"
+
+  prefix        = local.prefix
+  function_name = "worker"
+  role_arn      = module.iam.worker_role_arn
+  memory_size   = var.lambda_memory
+  timeout       = var.lambda_worker_timeout
+  log_retention_days = var.lambda_log_retention_days
+
+  sqs_trigger_enabled = true
+  sqs_queue_arn       = module.sqs.queue_arn
+  sqs_batch_size      = var.lambda_worker_batch_size
+  sqs_max_concurrency = var.lambda_worker_max_concurrency
+
+  environment_variables = {
+    ORDERS_TABLE_NAME   = module.dynamodb.table_name
+    EVENT_BUS_NAME      = module.eventbridge.bus_name
+    EVENT_SOURCE        = module.eventbridge.order_event_source
+    ENVIRONMENT         = var.environment
+  }
+}
