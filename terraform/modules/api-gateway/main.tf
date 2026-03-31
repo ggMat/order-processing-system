@@ -126,7 +126,7 @@ resource "aws_lambda_permission" "api_gateway" {
 
 # Alert on 4xx errors — client errors worth monitoring
 # to catch misconfigured requests or auth issues
-resource "aws_cloudwatch_metric_alarm" "4xx_errors" {
+resource "aws_cloudwatch_metric_alarm" "errors_4xx" {
   alarm_name          = "${var.prefix}-apigw-4xx-errors"
   alarm_description   = "API Gateway is returning elevated 4xx errors"
   comparison_operator = "GreaterThanThreshold"
@@ -146,7 +146,7 @@ resource "aws_cloudwatch_metric_alarm" "4xx_errors" {
 
 # Alert on 5xx errors — server/integration errors
 # any 5xx in prod means something is broken
-resource "aws_cloudwatch_metric_alarm" "5xx_errors" {
+resource "aws_cloudwatch_metric_alarm" "errors_5xx" {
   alarm_name          = "${var.prefix}-apigw-5xx-errors"
   alarm_description   = "API Gateway is returning 5xx errors — Lambda integration may be failing"
   comparison_operator = "GreaterThanThreshold"
