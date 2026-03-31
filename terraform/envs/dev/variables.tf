@@ -118,3 +118,15 @@ variable "eventbridge_archive_retention_days" {
   default = 7
 }
 
+# ── API Gateway ──────────────────────────
+variable "apigw_throttling_burst_limit" {
+  type    = number
+  default = 20
+}
+
+variable "apigw_throttling_rate_limit" {
+  type    = number
+  default = 50
+}
+
+

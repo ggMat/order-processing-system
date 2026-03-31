@@ -91,3 +91,15 @@ module "lambda_worker" {
     ENVIRONMENT         = var.environment
   }
 }
+
+module "api_gateway" {
+  source = "../../modules/api-gateway"
+
+  prefix                     = local.prefix
+  environment                = var.environment
+  create_order_invoke_arn    = module.lambda_create_order.invoke_arn
+  create_order_function_name = module.lambda_create_order.function_name
+  log_retention_days         = var.lambda_log_retention_days
+  throttling_burst_limit     = var.apigw_throttling_burst_limit
+  throttling_rate_limit      = var.apigw_throttling_rate_limit
+}

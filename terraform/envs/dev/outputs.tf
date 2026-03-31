@@ -3,7 +3,7 @@ output "environment" {
   description = "Current environment name"
 }
 
-# add outputs as modules are built, e.g.:
-# output "api_gateway_url" {
-#   value = module.api_gateway.invoke_url
-# }
+output "api_endpoint" {
+  value       = module.api_gateway.api_endpoint
+  description = "POST /orders endpoint — use this to test the system"
+}

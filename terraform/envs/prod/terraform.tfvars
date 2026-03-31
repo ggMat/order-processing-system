@@ -31,3 +31,7 @@ eventbridge_event_source           = "order-processing"
 eventbridge_log_retention_days     = 90
 eventbridge_enable_archive         = true
 eventbridge_archive_retention_days = 90
+
+# API Gateway
+apigw_throttling_burst_limit = 200
+apigw_throttling_rate_limit  = 500
