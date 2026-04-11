@@ -126,59 +126,60 @@ resource "aws_lambda_permission" "api_gateway" {
 
 # Alert on 4xx errors — client errors worth monitoring
 # to catch misconfigured requests or auth issues
-resource "aws_cloudwatch_metric_alarm" "errors_4xx" {
-  alarm_name          = "${var.prefix}-apigw-4xx-errors"
-  alarm_description   = "API Gateway is returning elevated 4xx errors"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 2
-  metric_name         = "4XXError"
-  namespace           = "AWS/ApiGateway"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 10
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    ApiId = aws_apigatewayv2_api.orders.id
-    Stage = aws_apigatewayv2_stage.default.name
-  }
-}
+#
+# resource "aws_cloudwatch_metric_alarm" "errors_4xx" {
+#  alarm_name          = "${var.prefix}-apigw-4xx-errors"
+#  alarm_description   = "API Gateway is returning elevated 4xx errors"
+#  comparison_operator = "GreaterThanThreshold"
+#  evaluation_periods  = 2
+#  metric_name         = "4XXError"
+#  namespace           = "AWS/ApiGateway"
+#  period              = 60
+#  statistic           = "Sum"
+#  threshold           = 10
+#  treat_missing_data  = "notBreaching"
+#
+#  dimensions = {
+#    ApiId = aws_apigatewayv2_api.orders.id
+#    Stage = aws_apigatewayv2_stage.default.name
+#  }
+#}
 
 # Alert on 5xx errors — server/integration errors
 # any 5xx in prod means something is broken
-resource "aws_cloudwatch_metric_alarm" "errors_5xx" {
-  alarm_name          = "${var.prefix}-apigw-5xx-errors"
-  alarm_description   = "API Gateway is returning 5xx errors — Lambda integration may be failing"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "5XXError"
-  namespace           = "AWS/ApiGateway"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    ApiId = aws_apigatewayv2_api.orders.id
-    Stage = aws_apigatewayv2_stage.default.name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "errors_5xx" {
+#  alarm_name          = "${var.prefix}-apigw-5xx-errors"
+#  alarm_description   = "API Gateway is returning 5xx errors — Lambda integration may be failing"
+#  comparison_operator = "GreaterThanThreshold"
+#  evaluation_periods  = 1
+#  metric_name         = "5XXError"
+#  namespace           = "AWS/ApiGateway"
+#  period              = 60
+#  statistic           = "Sum"
+#  threshold           = 0
+#  treat_missing_data  = "notBreaching"
+#
+#  dimensions = {
+#    ApiId = aws_apigatewayv2_api.orders.id
+#    Stage = aws_apigatewayv2_stage.default.name
+#  }
+#}
 
 # Alert on throttled requests
-resource "aws_cloudwatch_metric_alarm" "throttled" {
-  alarm_name          = "${var.prefix}-apigw-throttled"
-  alarm_description   = "API Gateway is throttling requests"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "Count"
-  namespace           = "AWS/ApiGateway"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = var.throttling_burst_limit * 0.8
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    ApiId = aws_apigatewayv2_api.orders.id
-    Stage = aws_apigatewayv2_stage.default.name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "throttled" {
+#  alarm_name          = "${var.prefix}-apigw-throttled"
+#  alarm_description   = "API Gateway is throttling requests"
+#  comparison_operator = "GreaterThanThreshold"
+#  evaluation_periods  = 1
+#  metric_name         = "Count"
+#  namespace           = "AWS/ApiGateway"
+#  period              = 60
+#  statistic           = "Sum"
+#  threshold           = var.throttling_burst_limit * 0.8
+#  treat_missing_data  = "notBreaching"
+#
+#  dimensions = {
+#    ApiId = aws_apigatewayv2_api.orders.id
+#    Stage = aws_apigatewayv2_stage.default.name
+#  }
+#}

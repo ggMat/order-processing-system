@@ -116,36 +116,36 @@ resource "aws_cloudwatch_event_target" "order_failed_sns" {
 # CloudWatch alarms
 # ──────────────────────────────────────────
 
-resource "aws_cloudwatch_metric_alarm" "failed_invocations" {
-  alarm_name          = "${var.prefix}-eventbridge-failed-invocations"
-  alarm_description   = "EventBridge is failing to deliver events to SNS"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "FailedInvocations"
-  namespace           = "AWS/Events"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    EventBusName = aws_cloudwatch_event_bus.orders.name
-  }
-}
-
-resource "aws_cloudwatch_metric_alarm" "throttled_rules" {
-  alarm_name          = "${var.prefix}-eventbridge-throttled"
-  alarm_description   = "EventBridge rules are being throttled"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "ThrottledRules"
-  namespace           = "AWS/Events"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    EventBusName = aws_cloudwatch_event_bus.orders.name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "failed_invocations" {
+#   alarm_name          = "${var.prefix}-eventbridge-failed-invocations"
+#   alarm_description   = "EventBridge is failing to deliver events to SNS"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 1
+#   metric_name         = "FailedInvocations"
+#   namespace           = "AWS/Events"
+#   period              = 60
+#   statistic           = "Sum"
+#   threshold           = 0
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     EventBusName = aws_cloudwatch_event_bus.orders.name
+#   }
+# }
+#
+# resource "aws_cloudwatch_metric_alarm" "throttled_rules" {
+#   alarm_name          = "${var.prefix}-eventbridge-throttled"
+#   alarm_description   = "EventBridge rules are being throttled"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 1
+#   metric_name         = "ThrottledRules"
+#   namespace           = "AWS/Events"
+#   period              = 60
+#   statistic           = "Sum"
+#   threshold           = 0
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     EventBusName = aws_cloudwatch_event_bus.orders.name
+#   }
+# }

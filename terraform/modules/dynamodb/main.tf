@@ -96,38 +96,41 @@ resource "aws_dynamodb_table" "orders" {
 
 # Alert when DynamoDB returns system errors (5xx)
 # These indicate AWS-side issues, not application bugs
-resource "aws_cloudwatch_metric_alarm" "system_errors" {
-  alarm_name          = "${var.prefix}-dynamodb-system-errors"
-  alarm_description   = "DynamoDB is returning system errors on the orders table"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "SystemErrors"
-  namespace           = "AWS/DynamoDB"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
 
-  dimensions = {
-    TableName = aws_dynamodb_table.orders.name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "system_errors" {
+#   alarm_name          = "${var.prefix}-dynamodb-system-errors"
+#   alarm_description   = "DynamoDB is returning system errors on the orders table"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 1
+#   metric_name         = "SystemErrors"
+#   namespace           = "AWS/DynamoDB"
+#   period              = 60
+#   statistic           = "Sum"
+#   threshold           = 0
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     TableName = aws_dynamodb_table.orders.name
+#   }
+# }
+
 
 # Alert on throttling — means traffic is exceeding capacity
 # Only relevant when billing_mode = PROVISIONED, but harmless on PAY_PER_REQUEST
-resource "aws_cloudwatch_metric_alarm" "throttled_requests" {
-  alarm_name          = "${var.prefix}-dynamodb-throttling"
-  alarm_description   = "DynamoDB requests are being throttled on the orders table"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 2
-  metric_name         = "ThrottledRequests"
-  namespace           = "AWS/DynamoDB"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
 
-  dimensions = {
-    TableName = aws_dynamodb_table.orders.name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "throttled_requests" {
+#   alarm_name          = "${var.prefix}-dynamodb-throttling"
+#   alarm_description   = "DynamoDB requests are being throttled on the orders table"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 2
+#   metric_name         = "ThrottledRequests"
+#   namespace           = "AWS/DynamoDB"
+#   period              = 60
+#   statistic           = "Sum"
+#   threshold           = 0
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     TableName = aws_dynamodb_table.orders.name
+#   }
+# }

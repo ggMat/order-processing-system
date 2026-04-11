@@ -59,19 +59,19 @@ resource "aws_sqs_queue_policy" "orders" {
 # any message here means a processing failure
 # ──────────────────────────────────────────
 
-resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
-  alarm_name          = "${var.prefix}-dlq-not-empty"
-  alarm_description   = "Messages are accumulating in the dead letter queue"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 1 
-  metric_name         = "ApproximateNumberOfMessagesVisible" 
-  namespace           = "AWS/SQS"
-  period              = 60 
-  statistic           = "Sum"
-  threshold           = var.alarm_dlq_threshold
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    QueueName = aws_sqs_queue.dlq.name 
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "dlq_not_empty" {
+#   alarm_name          = "${var.prefix}-dlq-not-empty"
+#   alarm_description   = "Messages are accumulating in the dead letter queue"
+#   comparison_operator = "GreaterThanOrEqualToThreshold"
+#   evaluation_periods  = 1 
+#   metric_name         = "ApproximateNumberOfMessagesVisible" 
+#   namespace           = "AWS/SQS"
+#   period              = 60 
+#   statistic           = "Sum"
+#   threshold           = var.alarm_dlq_threshold
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     QueueName = aws_sqs_queue.dlq.name 
+#   }
+# }

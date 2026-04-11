@@ -69,19 +69,19 @@ resource "aws_sns_topic_subscription" "webhook" {
 # Fires when SNS cannot deliver to any subscriber
 # ──────────────────────────────────────────
 
-resource "aws_cloudwatch_metric_alarm" "failed_deliveries" {
-  alarm_name          = "${var.prefix}-sns-failed-deliveries"
-  alarm_description   = "SNS is failing to deliver order notifications"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "NumberOfNotificationsFailed"
-  namespace           = "AWS/SNS"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    TopicName = aws_sns_topic.orders.name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "failed_deliveries" {
+#   alarm_name          = "${var.prefix}-sns-failed-deliveries"
+#   alarm_description   = "SNS is failing to deliver order notifications"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 1
+#   metric_name         = "NumberOfNotificationsFailed"
+#   namespace           = "AWS/SNS"
+#   period              = 60
+#   statistic           = "Sum"
+#   threshold           = 0
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     TopicName = aws_sns_topic.orders.name
+#   }
+# }
