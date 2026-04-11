@@ -97,56 +97,60 @@ resource "aws_lambda_event_source_mapping" "sqs" {
 # ──────────────────────────────────────────
 
 # Alert on any Lambda errors
-resource "aws_cloudwatch_metric_alarm" "errors" {
-  alarm_name          = "${var.prefix}-${var.function_name}-errors"
-  alarm_description   = "Lambda ${var.function_name} is throwing errors"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "Errors"
-  namespace           = "AWS/Lambda"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    FunctionName = aws_lambda_function.this.function_name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "errors" {
+#   alarm_name          = "${var.prefix}-${var.function_name}-errors"
+#   alarm_description   = "Lambda ${var.function_name} is throwing errors"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 1
+#   metric_name         = "Errors"
+#   namespace           = "AWS/Lambda"
+#   period              = 60
+#   statistic           = "Sum"
+#   threshold           = 0
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     FunctionName = aws_lambda_function.this.function_name
+#   }
+# }
+#
 
 # Alert when duration approaches the timeout limit (>80%)
 # Early warning before Lambda starts timing out entirely
-resource "aws_cloudwatch_metric_alarm" "duration" {
-  alarm_name          = "${var.prefix}-${var.function_name}-high-duration"
-  alarm_description   = "Lambda ${var.function_name} duration is approaching timeout limit"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 3
-  metric_name         = "Duration"
-  namespace           = "AWS/Lambda"
-  period              = 60
-  statistic           = "Maximum"
-  threshold           = var.timeout * 1000 * 0.8 # 80% of timeout in milliseconds
-  treat_missing_data  = "notBreaching"
 
-  dimensions = {
-    FunctionName = aws_lambda_function.this.function_name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "duration" {
+#   alarm_name          = "${var.prefix}-${var.function_name}-high-duration"
+#   alarm_description   = "Lambda ${var.function_name} duration is approaching timeout limit"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 3
+#   metric_name         = "Duration"
+#   namespace           = "AWS/Lambda"
+#   period              = 60
+#   statistic           = "Maximum"
+#   threshold           = var.timeout * 1000 * 0.8 # 80% of timeout in milliseconds
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     FunctionName = aws_lambda_function.this.function_name
+#   }
+# }
+#
 
 # Alert on throttles — means Lambda concurrency limit is being hit
-resource "aws_cloudwatch_metric_alarm" "throttles" {
-  alarm_name          = "${var.prefix}-${var.function_name}-throttles"
-  alarm_description   = "Lambda ${var.function_name} is being throttled"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 1
-  metric_name         = "Throttles"
-  namespace           = "AWS/Lambda"
-  period              = 60
-  statistic           = "Sum"
-  threshold           = 0
-  treat_missing_data  = "notBreaching"
 
-  dimensions = {
-    FunctionName = aws_lambda_function.this.function_name
-  }
-}
+# resource "aws_cloudwatch_metric_alarm" "throttles" {
+#   alarm_name          = "${var.prefix}-${var.function_name}-throttles"
+#   alarm_description   = "Lambda ${var.function_name} is being throttled"
+#   comparison_operator = "GreaterThanThreshold"
+#   evaluation_periods  = 1
+#   metric_name         = "Throttles"
+#   namespace           = "AWS/Lambda"
+#   period              = 60
+#   statistic           = "Sum"
+#   threshold           = 0
+#   treat_missing_data  = "notBreaching"
+#
+#   dimensions = {
+#     FunctionName = aws_lambda_function.this.function_name
+#   }
+# }
