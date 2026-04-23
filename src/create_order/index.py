@@ -27,10 +27,15 @@ def handler(event, context):
     if not items or not isinstance(items, list) or len(items) == 0:
         return _response(400, {"error": "items must be a non-empty list"})
 
+    items = [
+        {**item, "price": Decimal(str(item.get("price", 0)))}
+        for item in items
+    ]
+
     order_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
     total = sum(
-        Decimal(str(item.get("price", 0))) * int(item.get("quantity", 1))
+        item["price"] * int(item.get("quantity", 1))
         for item in items
     )
 
