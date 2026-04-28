@@ -1,4 +1,4 @@
-# Order Processing System - AWS Serverless Portfolio Project
+# Order Processing System - AWS Serverless Project
 
 This repository demonstrates a production-grade, event-driven order processing pipeline on AWS using a fully serverless architecture. Infrastructure is managed with Terraform, application logic is written in Python, and the entire deployment lifecycle — from infrastructure provisioning to Lambda code updates — is automated via GitHub Actions with OIDC-based keyless authentication.
 
@@ -253,20 +253,6 @@ zip -j worker.zip src/worker/index.py
 aws lambda update-function-code \
   --function-name order-processing-system-dev-worker \
   --zip-file fileb://worker.zip
-```
-
-**Test the API:**
-
-```bash
-curl -X POST https://<api-id>.execute-api.eu-west-1.amazonaws.com/orders \
-  -H "Content-Type: application/json" \
-  -d '{
-    "customer_id": "customer-123",
-    "items": [
-      {"product_id": "prod-a", "quantity": 2, "price": 29.99},
-      {"product_id": "prod-b", "quantity": 1, "price": 9.49}
-    ]
-  }'
 ```
 
 ---
